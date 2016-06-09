@@ -1,0 +1,13 @@
+SELECT [STATE]+[YEAR]+[MONTH]+[DAY]+[SITE]+[PDP].[dbo].[SampleData].[COMMOD]+[LAB]+[SOURCE_ID] AS [PDP Sample ID],
+		[PDP].[dbo].[ResultsData].[COMMOD] As [Com],[PDP].[dbo].[ResultsData].[PESTCODE] As [Pest Code],[PDP].[dbo].[PestCode_LU].[Descrip] as [Pesticide Name],
+		[CONCEN] As [Concen],[LOD],[CONUNIT] As [pp_],[ANNOTATE] As [Ann],[QUANTITATE] As [Qua],[MEAN] As [Mean],
+		[PDP].[dbo].[SampleData].[COMMTYPE] As [Type],[VARIETY] As [Variety],[CLAIM] As [Clm],[DISTTYPE] As [Fac],[ORIGIN] As [Origin],
+		[PDP].[dbo].[Country_LU].[DESCRIP] As [Country], [ORIGST] As [State],[QUANTITY] As [Qty], [EPATOL]	As [Tol (ppm)]
+FROM [PDP].[dbo].[ResultsData] 
+	INNER JOIN [PDP].[dbo].[SampleData] on [PDP].[dbo].[ResultsData].[SAMPLE_PK] = [PDP].[dbo].[SampleData].[SAMPLE_PK]
+	INNER JOIN [PDP].[dbo].[PestCode_LU] on [PDP].[dbo].[ResultsData].[PESTCODE] = [PDP].[dbo].[PestCode_LU].[PESTCODE]
+	LEFT JOIN [PDP].[dbo].[Country_LU] on [PDP].[dbo].[SampleData].[COUNTRY] = [PDP].[dbo].[Country_LU].[COUNTRY]
+	LEFT JOIN [PDP].[dbo].[Tolerance_LU] ON [PDP].[dbo].[ResultsData].[PDP_YEAR] = [PDP].[dbo].[Tolerance_LU].[PDP_YEAR] AND [PDP].[dbo].[ResultsData].[PESTCODE] = [PDP].[dbo].[Tolerance_LU].[PESTCODE] AND [PDP].[dbo].[ResultsData].[COMMOD] = [PDP].[dbo].[Tolerance_LU].[COMMOD]
+WHERE 
+--[PDP].[dbo].[ResultsData].[COMMOD]='CU' AND [PDP].[dbo].[ResultsData].[PESTCODE]='204' and 
+[PDP].[dbo].[ResultsData].[PDP_YEAR]= 2014

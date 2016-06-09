@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@section head{
+<link rel="styleSheet" href="~/Content/ui-grid.min.css" />
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/ui-grid.min.js"></script>
+}
+
+<style>
+.grid {
+  width: 980px;
+  height: 550px;
+}
+</style>
+
+<h2>Pdp Results</h2>
+<div ng-app="appPdp">
+    <div ng-controller="MainCtrl">
+        <div id="grid1" ui-grid="gridResul" class="grid" ui-grid-resize-columns ui-grid-exporter></div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/app-pdpresult.js"></script>
+}
+

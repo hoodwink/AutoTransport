@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdpApi", "PdpApi\PdpApi.csproj", "{D6EE71B1-C94B-4ADC-B1DF-8BDBF6719A2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdpApi.Tests", "PdpApi.Tests\PdpApi.Tests.csproj", "{8D7ECB6D-C207-498D-A041-C86C3A3F5CE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdpWeb", "PdpWeb\PdpWeb.csproj", "{D747A22A-C60D-4024-A72E-31F10CE5DEA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6EE71B1-C94B-4ADC-B1DF-8BDBF6719A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6EE71B1-C94B-4ADC-B1DF-8BDBF6719A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6EE71B1-C94B-4ADC-B1DF-8BDBF6719A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6EE71B1-C94B-4ADC-B1DF-8BDBF6719A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7ECB6D-C207-498D-A041-C86C3A3F5CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7ECB6D-C207-498D-A041-C86C3A3F5CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7ECB6D-C207-498D-A041-C86C3A3F5CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7ECB6D-C207-498D-A041-C86C3A3F5CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D747A22A-C60D-4024-A72E-31F10CE5DEA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D747A22A-C60D-4024-A72E-31F10CE5DEA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D747A22A-C60D-4024-A72E-31F10CE5DEA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D747A22A-C60D-4024-A72E-31F10CE5DEA0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
