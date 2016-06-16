@@ -15,10 +15,10 @@ app.controller('MainCtrl', function ($scope,$http) {
             exporterMenuCsv: true
         };
 
-        var sUrl = "/PdpApi/api/ResultsData?MaxRecordCount=100000";
+        var sUrl = "/PdpApi/api/ResultsData?MaxRecordCount=1000";
         $http.get(sUrl)
         .success(function (data) {
-            $scope.gridResul.data = data;
+        	$scope.gridResul.data = data;
         }).error(function () {
             alert('err');
         });

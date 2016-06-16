@@ -173,6 +173,9 @@
     <Compile Include="Country_LU.cs">
       <DependentUpon>PdpDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="get_pdp_result_tbl_Result.cs">
+      <DependentUpon>PdpDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

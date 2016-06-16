@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6e8d490e1eb24c01b417f2d7403bb298" Name="Diagram1">
+      <Diagram DiagramId="6e8d490e1eb24c01b417f2d7403bb298" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="PDPModel.Country_LU" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PDPModel.PestCode_LU" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PDPModel.SampleData" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />

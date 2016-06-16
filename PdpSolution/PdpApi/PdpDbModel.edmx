@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PDPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PDPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Country_LU">
           <Key>
             <PropertyRef Name="COUNTRY" />
@@ -24,12 +24,15 @@
 warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ResultsData">
           <Key>
+            
+            
             <PropertyRef Name="PDP_YEAR" />
+            
           </Key>
-          <Property Name="SAMPLE_PK" Type="int" />
-          <Property Name="PESTCODE" Type="nvarchar" MaxLength="3" />
+          <Property Name="SAMPLE_PK" Type="int" Nullable="false" />
+          <Property Name="PESTCODE" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="PDP_YEAR" Type="smallint" Nullable="false" />
-          <Property Name="COMMOD" Type="nvarchar" MaxLength="2" />
+          <Property Name="COMMOD" Type="nvarchar" MaxLength="2" Nullable="false" />
           <Property Name="COMMTYPE" Type="nvarchar" MaxLength="2" />
           <Property Name="LAB" Type="nvarchar" MaxLength="3" />
           <Property Name="TESTCLASS" Type="nvarchar" MaxLength="1" />
@@ -68,15 +71,35 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           <Property Name="DISTST" Type="nvarchar" MaxLength="2" />
           <Property Name="ORIGST" Type="nvarchar" MaxLength="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PDP.dbo.Tolerance_LU' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Tolerance_LU">
-          <Property Name="PDP_YEAR" Type="smallint" />
-          <Property Name="PESTCODE" Type="nvarchar" MaxLength="3" />
-          <Property Name="COMMOD" Type="nvarchar" MaxLength="2" />
-          <Property Name="EPATOL" Type="nvarchar" MaxLength="15" />
-          <Property Name="TOLUNIT" Type="nvarchar" MaxLength="1" />
-        </EntityType>-->
+        <Function Name="get_pdp_result_tbl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start_offset" Type="int" Mode="In" />
+          <Parameter Name="numb_rows" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="PDP Sample ID" Type="nvarchar" MaxLength="18" />
+                <Property Name="Com" Type="nvarchar" MaxLength="2" Nullable="false" />
+                <Property Name="Pest Code" Type="nvarchar" MaxLength="3" Nullable="false" />
+                <Property Name="Pesticide Name" Type="nvarchar" MaxLength="100" />
+                <Property Name="Concen" Type="float" />
+                <Property Name="LOD" Type="float" />
+                <Property Name="pp_" Type="nvarchar" MaxLength="1" />
+                <Property Name="Ann" Type="nvarchar" MaxLength="2" />
+                <Property Name="Qua" Type="nvarchar" MaxLength="2" />
+                <Property Name="Mean" Type="nvarchar" MaxLength="2" />
+                <Property Name="Type" Type="nvarchar" MaxLength="2" />
+                <Property Name="Variety" Type="nvarchar" MaxLength="20" />
+                <Property Name="Clm" Type="nvarchar" MaxLength="2" />
+                <Property Name="Fac" Type="nvarchar" MaxLength="1" />
+                <Property Name="Origin" Type="nvarchar" MaxLength="1" />
+                <Property Name="Country" Type="nvarchar" MaxLength="80" />
+                <Property Name="State" Type="nvarchar" MaxLength="2" />
+                <Property Name="Qty" Type="smallint" />
+                <Property Name="Tol (ppm)" Type="nvarchar" MaxLength="15" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <EntityContainer Name="PDPModelStoreContainer">
           <EntitySet Name="Country_LU" EntityType="Self.Country_LU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PestCode_LU" EntityType="Self.PestCode_LU" Schema="dbo" store:Type="Tables" />
@@ -103,8 +126,7 @@ warning 6013: The table/view 'PDP.dbo.Tolerance_LU' does not have a primary key 
     FROM [dbo].[ResultsData] AS [ResultsData]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PDPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -151,10 +173,10 @@ warning 6013: The table/view 'PDP.dbo.Tolerance_LU' does not have a primary key 
           <Key>
             <PropertyRef Name="PDP_YEAR" />
           </Key>
-          <Property Name="SAMPLE_PK" Type="Int32" />
-          <Property Name="PESTCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="SAMPLE_PK" Type="Int32" Nullable="false" />
+          <Property Name="PESTCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PDP_YEAR" Type="Int16" Nullable="false" />
-          <Property Name="COMMOD" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="COMMOD" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="COMMTYPE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="LAB" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="TESTCLASS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
@@ -174,7 +196,32 @@ warning 6013: The table/view 'PDP.dbo.Tolerance_LU' does not have a primary key 
           <EntitySet Name="PestCode_LU" EntityType="Self.PestCode_LU" />
           <EntitySet Name="SampleDatas" EntityType="Self.SampleData" />
           <EntitySet Name="ResultsDatas" EntityType="Self.ResultsData" />
+          <FunctionImport Name="get_pdp_result_tbl" IsComposable="true" ReturnType="Collection(PDPModel.get_pdp_result_tbl_Result)">
+            <Parameter Name="start_offset" Mode="In" Type="Int32" />
+            <Parameter Name="numb_rows" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="get_pdp_result_tbl_Result">
+          <Property Type="String" Name="PDP_Sample_ID" Nullable="true" MaxLength="18" />
+          <Property Type="String" Name="Com" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Pest_Code" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Pesticide_Name" Nullable="true" MaxLength="100" />
+          <Property Type="Double" Name="Concen" Nullable="true" />
+          <Property Type="Double" Name="LOD" Nullable="true" />
+          <Property Type="String" Name="pp_" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Ann" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Qua" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Mean" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Variety" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Clm" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Fac" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Origin" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="2" />
+          <Property Type="Int16" Name="Qty" Nullable="true" />
+          <Property Type="String" Name="Tol__ppm_" Nullable="true" MaxLength="15" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -246,6 +293,31 @@ warning 6013: The table/view 'PDP.dbo.Tolerance_LU' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="get_pdp_result_tbl" FunctionName="PDPModel.Store.get_pdp_result_tbl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PDPModel.get_pdp_result_tbl_Result">
+                <ScalarProperty Name="PDP_Sample_ID" ColumnName="PDP Sample ID" />
+                <ScalarProperty Name="Com" ColumnName="Com" />
+                <ScalarProperty Name="Pest_Code" ColumnName="Pest Code" />
+                <ScalarProperty Name="Pesticide_Name" ColumnName="Pesticide Name" />
+                <ScalarProperty Name="Concen" ColumnName="Concen" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="pp_" ColumnName="pp_" />
+                <ScalarProperty Name="Ann" ColumnName="Ann" />
+                <ScalarProperty Name="Qua" ColumnName="Qua" />
+                <ScalarProperty Name="Mean" ColumnName="Mean" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Variety" ColumnName="Variety" />
+                <ScalarProperty Name="Clm" ColumnName="Clm" />
+                <ScalarProperty Name="Fac" ColumnName="Fac" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Tol__ppm_" ColumnName="Tol (ppm)" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

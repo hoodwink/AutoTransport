@@ -16,10 +16,11 @@ namespace PdpApi.Controllers
     {
         private PDPEntities db = new PDPEntities();
 
-        // GET: api/ResultsData
-        public IQueryable<ResultsData> GetResultsDatas(int MaxRecordCount=1000)
-        {
-            return db.ResultsDatas.Take(MaxRecordCount);
+		// GET: api/ResultsData
+		//public IQueryable<ResultsData> GetResultsDatas(int MaxRecordCount=1000)
+		public IQueryable<get_pdp_result_tbl_Result> GetResultsDatas(int MaxRecordCount = 1000) {
+			//return db.ResultsDatas.Take(MaxRecordCount);
+			return db.get_pdp_result_tbl(10000, MaxRecordCount);
         }
 
         // GET: api/ResultsData/5
