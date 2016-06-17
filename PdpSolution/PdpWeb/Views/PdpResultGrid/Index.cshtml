@@ -10,18 +10,17 @@
 
 <style>
 .grid {
-  width: 980px;
-  height: 550px;
+  width: 1080px;
+  height: 530px;
 }
 </style>
 
 <h2>Pdp Results</h2>
 <div ng-app="appPdp">
     <div ng-controller="MainCtrl">
-        <div id="grid1" ui-grid="gridResul" class="grid" ui-grid-resize-columns ui-grid-exporter></div>
+        <div id="grid1" ui-grid="gridResul" class="grid" ui-grid-resize-columns  ui-grid-pagination ui-grid-selection ui-grid-exporter></div>
     </div>
 </div>
 @section scripts{
     <script src="~/Scripts/app-pdpresult.js"></script>
 }
-
