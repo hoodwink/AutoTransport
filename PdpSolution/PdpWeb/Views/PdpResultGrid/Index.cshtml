@@ -17,9 +17,12 @@
 
 <h2>Pdp Results</h2>
 <div ng-app="appPdp">
-    <div ng-controller="MainCtrl">
-        <div id="grid1" ui-grid="gridResul" class="grid" ui-grid-resize-columns  ui-grid-pagination ui-grid-selection ui-grid-exporter></div>
-    </div>
+	<div ng-controller="MainCtrl">
+		<div ng-hide="!loading">
+			<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i><span>Loading...</span>
+		</div>
+		<div id="grid1" ui-grid="gridResul" class="grid" ui-grid-resize-columns ui-grid-pagination ui-grid-selection ui-grid-exporter></div>
+	</div>
 </div>
 @section scripts{
     <script src="~/Scripts/app-pdpresult.js"></script>

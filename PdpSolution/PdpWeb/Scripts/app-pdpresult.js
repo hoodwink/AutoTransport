@@ -103,15 +103,22 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 		}
 
 		var _scope = $scope;
+		$scope.loading = true;
 		return $http.get(url)
 		.success(function (response) {
 			$scope.gridResul.totalItems = response.RecordCount;
 			$scope.gridResul.data = response.Data; // data.slice(firstRow, firstRow + pageSize)
 		}).error(function (data) {
 			alert('error getting data: ' + data.ExceptionMessage);
-		});
+		}).finally(function () {
+			$scope.loading = false;
+		})
 	};
 
-	paginationOptions.filterColumns.push('PdpYear#2014');
-	getPage(1, $scope.gridResul.paginationPageSize, paginationOptions);
+	function init() {
+		paginationOptions.filterColumns.push('PdpYear#2014');
+		getPage(1, $scope.gridResul.paginationPageSize, paginationOptions);
+	}
+	
+	init();
 });
