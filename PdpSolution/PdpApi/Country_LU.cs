@@ -18,9 +18,24 @@ using System;
 public partial class Country_LU
 {
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public Country_LU()
+    {
+
+        this.SampleDatas = new HashSet<SampleData>();
+
+    }
+
+
     public string COUNTRY { get; set; }
 
     public string DESCRIP { get; set; }
+
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<SampleData> SampleDatas { get; set; }
 
 }
 

@@ -71,6 +71,30 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           <Property Name="DISTST" Type="nvarchar" MaxLength="2" />
           <Property Name="ORIGST" Type="nvarchar" MaxLength="2" />
         </EntityType>
+        <EntityType Name="Tolerance_LU">
+          <Key>
+            <PropertyRef Name="PDP_YEAR" />
+            <PropertyRef Name="PESTCODE" />
+            <PropertyRef Name="COMMOD" />
+          </Key>
+          <Property Name="PDP_YEAR" Type="smallint" Nullable="false" />
+          <Property Name="PESTCODE" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="COMMOD" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="EPATOL" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TOLUNIT" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_SampleData_Country">
+          <End Role="Country_LU" Type="Self.Country_LU" Multiplicity="0..1" />
+          <End Role="SampleData" Type="Self.SampleData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country_LU">
+              <PropertyRef Name="COUNTRY" />
+            </Principal>
+            <Dependent Role="SampleData">
+              <PropertyRef Name="COUNTRY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="get_pdp_result_tbl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start_offset" Type="int" Mode="In" />
           <Parameter Name="numb_rows" Type="int" Mode="In" />
@@ -104,6 +128,7 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           <EntitySet Name="Country_LU" EntityType="Self.Country_LU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PestCode_LU" EntityType="Self.PestCode_LU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SampleData" EntityType="Self.SampleData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tolerance_LU" EntityType="Self.Tolerance_LU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResultsData" EntityType="Self.ResultsData" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ResultsData].[SAMPLE_PK] AS [SAMPLE_PK], 
@@ -125,6 +150,10 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
     [ResultsData].[DETERMIN] AS [DETERMIN]
     FROM [dbo].[ResultsData] AS [ResultsData]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_SampleData_Country" Association="Self.FK_SampleData_Country">
+            <End Role="Country_LU" EntitySet="Country_LU" />
+            <End Role="SampleData" EntitySet="SampleData" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -136,6 +165,7 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           </Key>
           <Property Name="COUNTRY" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DESCRIP" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SampleDatas" Relationship="PDPModel.FK_SampleData_Country" FromRole="Country_LU" ToRole="SampleData" />
         </EntityType>
         <EntityType Name="PestCode_LU">
           <Key>
@@ -168,6 +198,7 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           <Property Name="PACKST" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="DISTST" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="ORIGST" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Country_LU" Relationship="PDPModel.FK_SampleData_Country" FromRole="SampleData" ToRole="Country_LU" />
         </EntityType>
         <EntityType Name="ResultsData">
           <Key>
@@ -200,6 +231,11 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
             <Parameter Name="start_offset" Mode="In" Type="Int32" />
             <Parameter Name="numb_rows" Mode="In" Type="Int32" />
           </FunctionImport>
+          <AssociationSet Name="FK_SampleData_Country" Association="PDPModel.FK_SampleData_Country">
+            <End Role="Country_LU" EntitySet="Country_LU" />
+            <End Role="SampleData" EntitySet="SampleDatas" />
+          </AssociationSet>
+          <EntitySet Name="Tolerance_LU" EntityType="PDPModel.Tolerance_LU" />
         </EntityContainer>
         <ComplexType Name="get_pdp_result_tbl_Result">
           <Property Type="String" Name="PDP_Sample_ID" Nullable="true" MaxLength="18" />
@@ -222,6 +258,30 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           <Property Type="Int16" Name="Qty" Nullable="true" />
           <Property Type="String" Name="Tol__ppm_" Nullable="true" MaxLength="15" />
         </ComplexType>
+        <Association Name="FK_SampleData_Country">
+          <End Type="PDPModel.Country_LU" Role="Country_LU" Multiplicity="0..1" />
+          <End Type="PDPModel.SampleData" Role="SampleData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country_LU">
+              <PropertyRef Name="COUNTRY" />
+            </Principal>
+            <Dependent Role="SampleData">
+              <PropertyRef Name="COUNTRY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tolerance_LU">
+          <Key>
+            <PropertyRef Name="PDP_YEAR" />
+            <PropertyRef Name="PESTCODE" />
+            <PropertyRef Name="COMMOD" />
+          </Key>
+          <Property Name="PDP_YEAR" Type="Int16" Nullable="false" />
+          <Property Name="PESTCODE" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="COMMOD" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="EPATOL" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="TOLUNIT" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -318,6 +378,17 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Tolerance_LU">
+            <EntityTypeMapping TypeName="PDPModel.Tolerance_LU">
+              <MappingFragment StoreEntitySet="Tolerance_LU">
+                <ScalarProperty Name="TOLUNIT" ColumnName="TOLUNIT" />
+                <ScalarProperty Name="EPATOL" ColumnName="EPATOL" />
+                <ScalarProperty Name="COMMOD" ColumnName="COMMOD" />
+                <ScalarProperty Name="PESTCODE" ColumnName="PESTCODE" />
+                <ScalarProperty Name="PDP_YEAR" ColumnName="PDP_YEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

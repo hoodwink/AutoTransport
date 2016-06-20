@@ -43,6 +43,8 @@ public partial class PDPEntities : DbContext
 
     public virtual DbSet<ResultsData> ResultsDatas { get; set; }
 
+    public virtual DbSet<Tolerance_LU> Tolerance_LU { get; set; }
+
 
     [DbFunction("PDPEntities", "get_pdp_result_tbl")]
     public virtual IQueryable<get_pdp_result_tbl_Result> get_pdp_result_tbl(Nullable<int> start_offset, Nullable<int> numb_rows)

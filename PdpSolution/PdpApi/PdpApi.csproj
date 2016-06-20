@@ -131,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -179,6 +178,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CountedDbResult.cs" />
     <Compile Include="PdpDbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -202,6 +202,9 @@
       <DependentUpon>PdpDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SampleData.cs">
+      <DependentUpon>PdpDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tolerance_LU.cs">
       <DependentUpon>PdpDbModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

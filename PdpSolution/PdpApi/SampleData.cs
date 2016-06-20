@@ -56,6 +56,10 @@ public partial class SampleData
 
     public string ORIGST { get; set; }
 
+
+
+    public virtual Country_LU Country_LU { get; set; }
+
 }
 
 }
