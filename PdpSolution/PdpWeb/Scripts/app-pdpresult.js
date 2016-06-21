@@ -87,7 +87,14 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 					getPage(newPage, pageSize, paginationOptions);
 				}
 			});
-		}
+		},
+		gridMenuCustomItems: [{
+			title: 'Export Filtered Data As CSV',
+			order: 100,
+			action: function ($event) {
+				window.open('/PdpApi/api/ResDataStream', '_blank', '');
+			}
+		}]
 	};
 
 	var getPage = function (curPage, pageSize, paginationOptions) {

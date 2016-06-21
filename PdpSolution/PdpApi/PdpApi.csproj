@@ -130,7 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Views\ResDataStream\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -167,6 +167,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PestCodeController.cs" />
+    <Compile Include="Controllers\ResDataStreamController.cs" />
     <Compile Include="Controllers\ResultsDataController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Country_LU.cs">
@@ -253,6 +254,7 @@
     <Content Include="PdpDbModel.edmx.diagram">
       <DependentUpon>PdpDbModel.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Data\sample_data.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
