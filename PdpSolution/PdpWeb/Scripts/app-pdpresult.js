@@ -92,7 +92,8 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 			title: 'Export Filtered Data As CSV',
 			order: 100,
 			action: function ($event) {
-				window.open('/PdpApi/api/ResDataStream', '_blank', '');
+				var sUrl = "/PdpApi/api/ResDataStream?Filter=" + encodeURIComponent(paginationOptions.filterColumns);
+				window.open(sUrl, '_blank', '');
 			}
 		}]
 	};
