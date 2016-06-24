@@ -185,6 +185,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CountedDbResult.cs" />
+    <Compile Include="Models\EditCellReq.cs" />
     <Compile Include="Models\PdpResModel.cs" />
     <Compile Include="PdpDbModel.Context.cs">
       <AutoGen>True</AutoGen>

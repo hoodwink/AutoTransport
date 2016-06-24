@@ -21,5 +21,9 @@ namespace PdpApi.Controllers {
 			//return db.get_pdp_result_tbl(FirstRow, PageSize);
 			return new ResDataManager().GetResultsDatas(FirstRow, PageSize, Filter, Sort);
 		}
+
+		public IHttpActionResult PutCellEdit(EditCellReq req) {
+			return Ok();
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿var app = angular.module('appPdp', [
 	'ui.grid',
+	'ui.grid.edit',
 	'ui.grid.pagination',
 	'ui.grid.selection',
 	'ui.grid.resizeColumns',
@@ -87,6 +88,12 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 					getPage(newPage, pageSize, paginationOptions);
 				}
 			});
+
+			gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+				editCellPut(rowEntity, colDef, newValue, oldValue);
+				//$scope.msg = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
+				$scope.$apply();
+			});
 		},
 		gridMenuCustomItems: [{
 			title: 'Export Filtered Data As CSV',
@@ -118,6 +125,18 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 			$scope.gridResul.data = response.Data; // data.slice(firstRow, firstRow + pageSize)
 		}).error(function (data) {
 			alert('error getting data: ' + data.ExceptionMessage);
+		}).finally(function () {
+			$scope.loading = false;
+		})
+	};
+
+	var editCellPut = function (rowEntity, colDef, newValue, oldValue) {
+		$scope.loading = true;
+		return $http.put("/PdpApi/api/ResultsData", { rowid: rowEntity.PDP_Sample_ID, col: colDef.name, val: newValue })
+		.success(function (response) {
+			$scope.msg = "successfully updated  row id:" + rowEntity.PDP_Sample_ID + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue;
+		}).error(function (data) {
+			alert('error updating data: ' + data.ExceptionMessage);
 		}).finally(function () {
 			$scope.loading = false;
 		})
