@@ -27,6 +27,7 @@ namespace PdpApi.BL {
 							case "Pesticide_Name": qry = qry.OrderByDescending(s => s.Pesticide_Name); break;
 							case "Pest_Code": qry = qry.OrderByDescending(s => s.Pest_Code); break;
 							case "Variety": qry = qry.OrderByDescending(s => s.Variety); break;
+							case "Concen": qry = qry.OrderByDescending(s => s.Concen); break;
 						}
 					} else {
 						switch (asColSort[0]) {
@@ -35,7 +36,7 @@ namespace PdpApi.BL {
 							case "Pesticide_Name": qry = qry.OrderBy(s => s.Pesticide_Name); break;
 							case "Pest_Code": qry = qry.OrderBy(s => s.Pest_Code); break;
 							case "Variety": qry = qry.OrderBy(s => s.Variety); break;
-
+							case "Concen": qry = qry.OrderBy(s => s.Concen); break;
 						}
 					}
 				}
@@ -55,6 +56,7 @@ namespace PdpApi.BL {
 					  from subTl in gt.DefaultIfEmpty()
 					  select new PdpResModel (){
 						  PDP_Sample_ID = sd.STATE + sd.YEAR + sd.MONTH + sd.DAY + sd.SITE + sd.COMMOD + rd.LAB + sd.SOURCE_ID,
+						  SamplePK = rd.SAMPLE_PK,
 						  PdpYear = rd.PDP_YEAR,
 						  Com = rd.COMMOD,
 						  Pest_Code = rd.PESTCODE,

@@ -6,6 +6,7 @@ using System.Web;
 namespace PdpApi.Models {
 	public class PdpResModel {
 		public string PDP_Sample_ID { get; set; }
+		public int SamplePK { get; set; }
 		public short PdpYear { get; set; }
 		public string Com { get; set; }
 		public string Pest_Code { get; set; }

@@ -28,7 +28,7 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 			{ field: 'Com'},
 			{ field: 'Pest_Code', width: 95 },
 			{ field: 'Pesticide_Name', displayName: 'Pest Name', width: 100 },
-			{ field: 'Concen', enableSorting: false, width: 80 },
+			{ field: 'Concen', enableSorting: true, width: 80 },
 			{ field: 'LOD', visible: false, enableSorting: false },
 			{ field: 'pp_', enableSorting: false, enableFiltering : false},
 			{ field: 'Ann', visible: false, enableSorting: false, enableFiltering: false },
@@ -119,6 +119,7 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 
 		var _scope = $scope;
 		$scope.loading = true;
+		$scope.msg = "";
 		return $http.get(url)
 		.success(function (response) {
 			$scope.gridResul.totalItems = response.RecordCount;
@@ -131,12 +132,18 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 	};
 
 	var editCellPut = function (rowEntity, colDef, newValue, oldValue) {
+		if (newValue == oldValue) {
+			$scope.msg = "Value did not change";
+			return;
+		}
+		//SAMPLE_PK int, PESTCODE string, PDP_YEAR short, COMMOD string
+		var sKey = rowEntity.SamplePK + "|" + rowEntity.Pest_Code + "|" + rowEntity.PdpYear + "|" + rowEntity.Com;
 		$scope.loading = true;
-		return $http.put("/PdpApi/api/ResultsData", { rowid: rowEntity.PDP_Sample_ID, col: colDef.name, val: newValue })
+		return $http.put("/PdpApi/api/ResultsData", { rowkey: sKey, col: colDef.name, val: newValue })
 		.success(function (response) {
-			$scope.msg = "successfully updated  row id:" + rowEntity.PDP_Sample_ID + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue;
+			$scope.msg = "successfully updated  row key:" + sKey + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue;
 		}).error(function (data) {
-			alert('error updating data: ' + data.ExceptionMessage);
+			alert('error updating data: ' + (data.ExceptionMessage ? data.ExceptionMessage : data.Message));
 		}).finally(function () {
 			$scope.loading = false;
 		})

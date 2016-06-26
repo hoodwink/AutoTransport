@@ -20,14 +20,12 @@
           <Property Name="DESCRIP" Type="nvarchar" MaxLength="100" />
           <Property Name="TESTCLASS" Type="nvarchar" MaxLength="1" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ResultsData">
           <Key>
-            
-            
+            <PropertyRef Name="SAMPLE_PK" />
+            <PropertyRef Name="PESTCODE" />
             <PropertyRef Name="PDP_YEAR" />
-            
+            <PropertyRef Name="COMMOD" />
           </Key>
           <Property Name="SAMPLE_PK" Type="int" Nullable="false" />
           <Property Name="PESTCODE" Type="nvarchar" MaxLength="3" Nullable="false" />
@@ -127,29 +125,9 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
         <EntityContainer Name="PDPModelStoreContainer">
           <EntitySet Name="Country_LU" EntityType="Self.Country_LU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PestCode_LU" EntityType="Self.PestCode_LU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResultsData" EntityType="Self.ResultsData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SampleData" EntityType="Self.SampleData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tolerance_LU" EntityType="Self.Tolerance_LU" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ResultsData" EntityType="Self.ResultsData" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ResultsData].[SAMPLE_PK] AS [SAMPLE_PK], 
-    [ResultsData].[PESTCODE] AS [PESTCODE], 
-    [ResultsData].[PDP_YEAR] AS [PDP_YEAR], 
-    [ResultsData].[COMMOD] AS [COMMOD], 
-    [ResultsData].[COMMTYPE] AS [COMMTYPE], 
-    [ResultsData].[LAB] AS [LAB], 
-    [ResultsData].[TESTCLASS] AS [TESTCLASS], 
-    [ResultsData].[CONCEN] AS [CONCEN], 
-    [ResultsData].[LOD] AS [LOD], 
-    [ResultsData].[CONUNIT] AS [CONUNIT], 
-    [ResultsData].[CONFMETHOD] AS [CONFMETHOD], 
-    [ResultsData].[CONFMETHOD2] AS [CONFMETHOD2], 
-    [ResultsData].[ANNOTATE] AS [ANNOTATE], 
-    [ResultsData].[QUANTITATE] AS [QUANTITATE], 
-    [ResultsData].[MEAN] AS [MEAN], 
-    [ResultsData].[EXTRACT] AS [EXTRACT], 
-    [ResultsData].[DETERMIN] AS [DETERMIN]
-    FROM [dbo].[ResultsData] AS [ResultsData]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_SampleData_Country" Association="Self.FK_SampleData_Country">
             <End Role="Country_LU" EntitySet="Country_LU" />
             <End Role="SampleData" EntitySet="SampleData" />
@@ -200,33 +178,10 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           <Property Name="ORIGST" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Country_LU" Relationship="PDPModel.FK_SampleData_Country" FromRole="SampleData" ToRole="Country_LU" />
         </EntityType>
-        <EntityType Name="ResultsData">
-          <Key>
-            <PropertyRef Name="PDP_YEAR" />
-          </Key>
-          <Property Name="SAMPLE_PK" Type="Int32" Nullable="false" />
-          <Property Name="PESTCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PDP_YEAR" Type="Int16" Nullable="false" />
-          <Property Name="COMMOD" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="COMMTYPE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="LAB" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="TESTCLASS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="CONCEN" Type="Double" />
-          <Property Name="LOD" Type="Double" />
-          <Property Name="CONUNIT" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="CONFMETHOD" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="CONFMETHOD2" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="ANNOTATE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="QUANTITATE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="MEAN" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="EXTRACT" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="DETERMIN" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityContainer Name="PDPEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Country_LU" EntityType="Self.Country_LU" />
           <EntitySet Name="PestCode_LU" EntityType="Self.PestCode_LU" />
           <EntitySet Name="SampleDatas" EntityType="Self.SampleData" />
-          <EntitySet Name="ResultsDatas" EntityType="Self.ResultsData" />
           <FunctionImport Name="get_pdp_result_tbl" IsComposable="true" ReturnType="Collection(PDPModel.get_pdp_result_tbl_Result)">
             <Parameter Name="start_offset" Mode="In" Type="Int32" />
             <Parameter Name="numb_rows" Mode="In" Type="Int32" />
@@ -236,6 +191,7 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
             <End Role="SampleData" EntitySet="SampleDatas" />
           </AssociationSet>
           <EntitySet Name="Tolerance_LU" EntityType="PDPModel.Tolerance_LU" />
+          <EntitySet Name="ResultsDatas" EntityType="PDPModel.ResultsData" />
         </EntityContainer>
         <ComplexType Name="get_pdp_result_tbl_Result">
           <Property Type="String" Name="PDP_Sample_ID" Nullable="true" MaxLength="18" />
@@ -281,6 +237,31 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
           <Property Name="COMMOD" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="EPATOL" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="TOLUNIT" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ResultsData">
+          <Key>
+            <PropertyRef Name="SAMPLE_PK" />
+            <PropertyRef Name="PESTCODE" />
+            <PropertyRef Name="PDP_YEAR" />
+            <PropertyRef Name="COMMOD" />
+          </Key>
+          <Property Name="SAMPLE_PK" Type="Int32" Nullable="false" />
+          <Property Name="PESTCODE" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="PDP_YEAR" Type="Int16" Nullable="false" />
+          <Property Name="COMMOD" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="COMMTYPE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="LAB" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="TESTCLASS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CONCEN" Type="Double" />
+          <Property Name="LOD" Type="Double" />
+          <Property Name="CONUNIT" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CONFMETHOD" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="CONFMETHOD2" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="ANNOTATE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="QUANTITATE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="MEAN" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="EXTRACT" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="DETERMIN" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -330,29 +311,6 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ResultsDatas">
-            <EntityTypeMapping TypeName="PDPModel.ResultsData">
-              <MappingFragment StoreEntitySet="ResultsData">
-                <ScalarProperty Name="SAMPLE_PK" ColumnName="SAMPLE_PK" />
-                <ScalarProperty Name="PESTCODE" ColumnName="PESTCODE" />
-                <ScalarProperty Name="PDP_YEAR" ColumnName="PDP_YEAR" />
-                <ScalarProperty Name="COMMOD" ColumnName="COMMOD" />
-                <ScalarProperty Name="COMMTYPE" ColumnName="COMMTYPE" />
-                <ScalarProperty Name="LAB" ColumnName="LAB" />
-                <ScalarProperty Name="TESTCLASS" ColumnName="TESTCLASS" />
-                <ScalarProperty Name="CONCEN" ColumnName="CONCEN" />
-                <ScalarProperty Name="LOD" ColumnName="LOD" />
-                <ScalarProperty Name="CONUNIT" ColumnName="CONUNIT" />
-                <ScalarProperty Name="CONFMETHOD" ColumnName="CONFMETHOD" />
-                <ScalarProperty Name="CONFMETHOD2" ColumnName="CONFMETHOD2" />
-                <ScalarProperty Name="ANNOTATE" ColumnName="ANNOTATE" />
-                <ScalarProperty Name="QUANTITATE" ColumnName="QUANTITATE" />
-                <ScalarProperty Name="MEAN" ColumnName="MEAN" />
-                <ScalarProperty Name="EXTRACT" ColumnName="EXTRACT" />
-                <ScalarProperty Name="DETERMIN" ColumnName="DETERMIN" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="get_pdp_result_tbl" FunctionName="PDPModel.Store.get_pdp_result_tbl">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PDPModel.get_pdp_result_tbl_Result">
@@ -386,6 +344,29 @@ warning 6002: The table/view 'PDP.dbo.ResultsData' does not have a primary key d
                 <ScalarProperty Name="COMMOD" ColumnName="COMMOD" />
                 <ScalarProperty Name="PESTCODE" ColumnName="PESTCODE" />
                 <ScalarProperty Name="PDP_YEAR" ColumnName="PDP_YEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResultsDatas">
+            <EntityTypeMapping TypeName="PDPModel.ResultsData">
+              <MappingFragment StoreEntitySet="ResultsData">
+                <ScalarProperty Name="DETERMIN" ColumnName="DETERMIN" />
+                <ScalarProperty Name="EXTRACT" ColumnName="EXTRACT" />
+                <ScalarProperty Name="MEAN" ColumnName="MEAN" />
+                <ScalarProperty Name="QUANTITATE" ColumnName="QUANTITATE" />
+                <ScalarProperty Name="ANNOTATE" ColumnName="ANNOTATE" />
+                <ScalarProperty Name="CONFMETHOD2" ColumnName="CONFMETHOD2" />
+                <ScalarProperty Name="CONFMETHOD" ColumnName="CONFMETHOD" />
+                <ScalarProperty Name="CONUNIT" ColumnName="CONUNIT" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="CONCEN" ColumnName="CONCEN" />
+                <ScalarProperty Name="TESTCLASS" ColumnName="TESTCLASS" />
+                <ScalarProperty Name="LAB" ColumnName="LAB" />
+                <ScalarProperty Name="COMMTYPE" ColumnName="COMMTYPE" />
+                <ScalarProperty Name="COMMOD" ColumnName="COMMOD" />
+                <ScalarProperty Name="PDP_YEAR" ColumnName="PDP_YEAR" />
+                <ScalarProperty Name="PESTCODE" ColumnName="PESTCODE" />
+                <ScalarProperty Name="SAMPLE_PK" ColumnName="SAMPLE_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

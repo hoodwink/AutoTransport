@@ -41,9 +41,9 @@ public partial class PDPEntities : DbContext
 
     public virtual DbSet<SampleData> SampleDatas { get; set; }
 
-    public virtual DbSet<ResultsData> ResultsDatas { get; set; }
-
     public virtual DbSet<Tolerance_LU> Tolerance_LU { get; set; }
+
+    public virtual DbSet<ResultsData> ResultsDatas { get; set; }
 
 
     [DbFunction("PDPEntities", "get_pdp_result_tbl")]
