@@ -47,6 +47,11 @@ namespace PdpApi.Controllers {
 					case "Concen":
 						if (!double.TryParse(req.val, out dVal)) return BadRequest("Value of CONCEN can't be " + req.val);
 						foundRec.CONCEN = dVal; break;
+					case "LOD":
+						if (!double.TryParse(req.val, out dVal)) return BadRequest("Value of LOD can't be " + req.val);
+						foundRec.LOD = dVal; break;
+					case "pp_":
+						foundRec.CONUNIT = req.val; break;
 					default: return BadRequest("can't edit column " + req.col);
 				}
 				try {

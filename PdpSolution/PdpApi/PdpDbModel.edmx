@@ -69,6 +69,22 @@
           <Property Name="DISTST" Type="nvarchar" MaxLength="2" />
           <Property Name="ORIGST" Type="nvarchar" MaxLength="2" />
         </EntityType>
+        <EntityType Name="telecom_order">
+          <Key>
+            <PropertyRef Name="Request Number" />
+          </Key>
+          <Property Name="Request Number" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order Date" Type="datetime" />
+          <Property Name="Fiscal Year" Type="float" />
+          <Property Name="Submitter" Type="nvarchar" MaxLength="255" />
+          <Property Name="Location" Type="nvarchar" MaxLength="255" />
+          <Property Name="Program" Type="nvarchar" MaxLength="255" />
+          <Property Name="Branch" Type="nvarchar" MaxLength="255" />
+          <Property Name="Group" Type="nvarchar" MaxLength="255" />
+          <Property Name="Option" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+          <Property Name="Link" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Tolerance_LU">
           <Key>
             <PropertyRef Name="PDP_YEAR" />
@@ -127,6 +143,7 @@
           <EntitySet Name="PestCode_LU" EntityType="Self.PestCode_LU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResultsData" EntityType="Self.ResultsData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SampleData" EntityType="Self.SampleData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="telecom_order" EntityType="Self.telecom_order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tolerance_LU" EntityType="Self.Tolerance_LU" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_SampleData_Country" Association="Self.FK_SampleData_Country">
             <End Role="Country_LU" EntitySet="Country_LU" />
@@ -192,6 +209,7 @@
           </AssociationSet>
           <EntitySet Name="Tolerance_LU" EntityType="PDPModel.Tolerance_LU" />
           <EntitySet Name="ResultsDatas" EntityType="PDPModel.ResultsData" />
+          <EntitySet Name="telecom_order" EntityType="PDPModel.telecom_order" />
         </EntityContainer>
         <ComplexType Name="get_pdp_result_tbl_Result">
           <Property Type="String" Name="PDP_Sample_ID" Nullable="true" MaxLength="18" />
@@ -262,6 +280,22 @@
           <Property Name="MEAN" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="EXTRACT" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="DETERMIN" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="telecom_order">
+          <Key>
+            <PropertyRef Name="Request_Number" />
+          </Key>
+          <Property Name="Request_Number" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Date" Type="DateTime" Precision="3" />
+          <Property Name="Fiscal_Year" Type="Double" />
+          <Property Name="Submitter" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Program" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Branch" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Option" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -367,6 +401,23 @@
                 <ScalarProperty Name="PDP_YEAR" ColumnName="PDP_YEAR" />
                 <ScalarProperty Name="PESTCODE" ColumnName="PESTCODE" />
                 <ScalarProperty Name="SAMPLE_PK" ColumnName="SAMPLE_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="telecom_order">
+            <EntityTypeMapping TypeName="PDPModel.telecom_order">
+              <MappingFragment StoreEntitySet="telecom_order">
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Option" ColumnName="Option" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Submitter" ColumnName="Submitter" />
+                <ScalarProperty Name="Fiscal_Year" ColumnName="Fiscal Year" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order Date" />
+                <ScalarProperty Name="Request_Number" ColumnName="Request Number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

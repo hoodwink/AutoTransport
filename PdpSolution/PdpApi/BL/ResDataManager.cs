@@ -28,6 +28,11 @@ namespace PdpApi.BL {
 							case "Pest_Code": qry = qry.OrderByDescending(s => s.Pest_Code); break;
 							case "Variety": qry = qry.OrderByDescending(s => s.Variety); break;
 							case "Concen": qry = qry.OrderByDescending(s => s.Concen); break;
+							case "LOD": qry = qry.OrderByDescending(s => s.LOD); break;
+							case "pp_": qry = qry.OrderByDescending(s => s.pp_); break;
+							case "Qua": qry = qry.OrderByDescending(s => s.Qua); break;
+							case "Mean": qry = qry.OrderByDescending(s => s.Mean); break;
+							case "Type": qry = qry.OrderByDescending(s => s.Type); break;
 						}
 					} else {
 						switch (asColSort[0]) {
@@ -37,6 +42,11 @@ namespace PdpApi.BL {
 							case "Pest_Code": qry = qry.OrderBy(s => s.Pest_Code); break;
 							case "Variety": qry = qry.OrderBy(s => s.Variety); break;
 							case "Concen": qry = qry.OrderBy(s => s.Concen); break;
+							case "LOD": qry = qry.OrderBy(s => s.LOD); break;
+							case "pp_": qry = qry.OrderBy(s => s.pp_); break;
+							case "Qua": qry = qry.OrderBy(s => s.Qua); break;
+							case "Mean": qry = qry.OrderBy(s => s.Mean); break;
+							case "Type": qry = qry.OrderBy(s => s.Type); break;
 						}
 					}
 				}
@@ -93,6 +103,14 @@ namespace PdpApi.BL {
 						break;
 					case "Pesticide_Name": qry = qry.Where(s => s.Pesticide_Name.Contains(sTerm)); break;
 					case "Pest_Code": qry = qry.Where(s => s.Pest_Code == sTerm); break;
+					case "pp_": qry = qry.Where(w => w.pp_ == sTerm);break;
+					case "LOD":
+						double dLod;
+						if (double.TryParse(sTerm, out dLod)) {
+							qry = qry.Where(w => w.LOD == dLod);
+						}
+						break;
+					case "Qua": qry = qry.Where(w => w.Qua == sTerm); break;
 					case "Variety": qry = qry.Where(s => null != s.Variety && s.Variety.Contains(sTerm)); break;
 				}
 			}
