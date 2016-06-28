@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Telco Order";
+}
+@section head{
+<link rel="stylesheet" href="~/Content/font-awesome.min.css" />
+<link rel="styleSheet" href="~/Content/ui-grid.min.css" />
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/ui-grid.min.js"></script>
+}
+
+<style>
+.grid {
+  width: 100%;
+  height: 460px;
+}
+.tbl-header h2{
+	margin: 3px;
+}
+.tbl-header label{
+	margin-top: 5px;
+}
+</style>
+<div ng-app="appTel">
+<div ng-controller="MainCtrl">
+	<div class="row tbl-header">
+		<div class="col-lg-4 lg"><h2>Telco Orders</h2></div>
+		<div class="col-lg-4 text-info">{{msg}}</div>
+		<div class="col-lg-4 text-right">
+			<label ng-hide="!loading" class="text-info">
+				<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i><span>Loading...</span>
+			</label>
+		</div>
+	</div>
+	<div class="row">
+		<div id="grid1" ui-grid="gridTelOrder" class="grid" ui-grid-grouping ui-grid-resize-columns></div>
+	</div>
+	<div class="row">&nbsp;</div>
+	<div class="row">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Preset Groups - Group By:</div>
+			<div class="panel-body">
+				<button type="button" class="btn btn-primary" ng-click="GroupByFiscalYear()">Fiscal Year</button>
+				<button type="button" class="btn btn-primary" ng-click="GroupByProgram()">Program</button>
+				<button type="button" class="btn btn-primary" ng-click="GroupByGroup()">Group</button>
+				<button type="button" class="btn btn-success" ng-click="GroupByNone()">None</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+@section scripts{
+    <script src="~/Scripts/app-telorder.js"></script>
+}
