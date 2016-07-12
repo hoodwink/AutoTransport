@@ -18,6 +18,10 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 		enableFiltering: true,
 		enableGridMenu: true,
 		exporterMenuCsv: true,
+		exporterMenuAllData: false,
+		exporterCsvFilename: 'PDPResults.csv',
+		exporterPdfFilename: 'PDPResults.pdf',
+		enableSelectAll: false,
 		paginationPageSize: 500,
 		useExternalPagination: true,
 		useExternalSorting: true,
@@ -44,14 +48,14 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 			{ field: 'Qty', enableSorting: false, enableFiltering: false },
 			{ field: 'Tol_ppm', enableSorting: false, enableFiltering: false }
 		],
-		exporterAllDataFn: function () {
+		/*exporterAllDataFn: function () {
 			return getPage(1, $scope.gridResul.totalItems, paginationOptions)
 			.then(function () {
 				$scope.gridResul.useExternalPagination = false;
 				$scope.gridResul.useExternalSorting = false;
 				getPage = null;
 			});
-		},
+		},*/
 		onRegisterApi: function (gridApi) {
 			$scope.gridApi = gridApi;
 			$scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {

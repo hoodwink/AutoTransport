@@ -29,7 +29,9 @@ namespace PdpApi.Controllers
 			HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
 			result.Content = new StreamContent(stream);
 			result.Content.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
-			result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") { FileName = "ExportData.csv" };
+			result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") {
+				FileName = string.Format("PDPResults{0:yyyy-MM-ddTHH_mm_ss}.csv", DateTime.Now)
+			};
 
 			Logger.DebugFormat("writing csv");
 			writer.WriteLine("PDP_Sample_ID, PdpYear, Com, Pesticide_Name, pp_, Pest_Code, Ann, Clm, Country, State, Tol_ppm");
