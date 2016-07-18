@@ -112,6 +112,7 @@ app.controller('MainCtrl', function ($scope, $http, uiGridConstants) {
 	var getPage = function (curPage, pageSize, paginationOptions) {
 		var firstRow = (curPage - 1) * pageSize;
 		var url = "/PdpApi/api/ResultsData?FirstRow=" + firstRow + "&PageSize=" + pageSize;
+		//var url = "http://lt-dellgs32r72:9080/api/ResultsData?FirstRow=" + firstRow + "&PageSize=" + pageSize;
 		if (paginationOptions.filterColumns) {
 			//alert(sortColumns + '+' + encodeURIComponent(sortColumns));
 			url += "&Filter=" + encodeURIComponent(paginationOptions.filterColumns);
